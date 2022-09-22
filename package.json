@@ -1,6 +1,6 @@
 {
   "name": "render-img",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple react image placeholder component.",
   "main": "dist/bundle.js",
   "files": [
@@ -13,9 +13,9 @@
   },
   "keywords": [
     "image",
-    "lazyloade"
+    "lazyloading"
   ],
-  "author": "mg-kh",
+  "author": "Kaung Htet",
   "license": "ISC",
   "peerDependencies": {
     "react": "^18.2.0",
