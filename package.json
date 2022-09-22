@@ -1,16 +1,18 @@
 {
   "name": "render-img",
-  "version": "0.0.1",
-  "description": "Simple image placeholder component.",
+  "version": "1.0.0",
+  "description": "Simple react image placeholder component.",
   "main": "dist/bundle.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
-    "image"
+    "image", "lazyloade"
   ],
   "author": "mg-kh",
   "license": "ISC",
@@ -26,11 +28,24 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack4": "^6.5.12",
+    "@storybook/manager-webpack4": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
     "@types/react-dom": "^18.0.6",
+    "babel-loader": "^8.2.5",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "lodash.round": "^4.0.4"
   }
 }
