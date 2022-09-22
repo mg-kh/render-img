@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { debounce, round } from "lodash";
 
 const ImageLoader = ({
   src,
@@ -10,6 +9,8 @@ const ImageLoader = ({
   lazyload = false,
   ...props
 }) => {
+  const debounce = require("lodash");
+  const round = require("lodash");
   const imgObj = new Image();
   const [img, setImg] = useState(placeHolderSrc);
   const viewPort = round(window.innerHeight / 2);
