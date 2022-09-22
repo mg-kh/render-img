@@ -9,8 +9,8 @@ const ImageLoader = ({
   lazyload = false,
   ...props
 }) => {
-  const debounce = require("lodash");
-  const round = require("lodash");
+  const debounce = require("lodash/debounce");
+  const round = require("lodash/round");
   const imgObj = new Image();
   const [img, setImg] = useState(placeHolderSrc);
   const viewPort = round(window.innerHeight / 2);
