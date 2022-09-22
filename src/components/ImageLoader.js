@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { debounce } from "lodash.debounce";
-import { round } from "lodash.debounce";
+import { debounce, round } from "lodash";
 
 const ImageLoader = ({
   src,

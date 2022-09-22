@@ -12,7 +12,8 @@
     "build-storybook": "build-storybook"
   },
   "keywords": [
-    "image", "lazyloade"
+    "image",
+    "lazyloade"
   ],
   "author": "mg-kh",
   "license": "ISC",
@@ -38,14 +39,11 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
+    "lodash": "^4.17.21",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2"
-  },
-  "dependencies": {
-    "lodash.debounce": "^4.0.8",
-    "lodash.round": "^4.0.4"
   }
 }
