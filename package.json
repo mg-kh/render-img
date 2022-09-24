@@ -1,6 +1,6 @@
 {
   "name": "render-img",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple react image placeholder and lazyloading component.",
   "main": "dist/bundle.js",
   "files": [
