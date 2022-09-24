@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
+
+import Hook from "./Hook";
 
 const ImageLoader = ({
   src,
@@ -9,45 +11,20 @@ const ImageLoader = ({
   lazyload = false,
   ...props
 }) => {
-  const debounce = require("lodash/debounce");
-  const round = require("lodash/round");
-  const imgObj = new Image();
-  const [img, setImg] = useState(placeHolderSrc);
-  const viewPort = round(window.innerHeight / 2);
-  const imgRef = useRef();
+  const imageRef = useRef();
 
-  useEffect(() => {
-    if (lazyload) {
-      // handleScroll();
-      window.addEventListener("scroll", handleScroll);
-    } else {
-      checkImgErrorOrLoad();
-    }
-    return () => {
-      if (lazyload) window.removeEventListener("scroll", handleScroll);
-    };
-  }, [src, lazyload]);
-
-  const handleScroll = debounce(() => {
-    const { top, bottom } = imgRef.current.getBoundingClientRect();
-    const elementHeight = round(bottom - top);
-    const startLoadingPos = elementHeight - threshold;
-    console.log(top);
-    if (viewPort > top + startLoadingPos) {
-      checkImgErrorOrLoad();
-      window.removeEventListener("scroll", handleScroll);
-    }
-  }, 100);
-
-  const checkImgErrorOrLoad = () => {
-    imgObj.src = src;
-    imgObj.onload = () => setImg(() => src);
-    imgObj.onerror = () => setImg(() => errorSrc);
-  };
+  const { imageSource } = Hook({
+    src,
+    placeHolderSrc,
+    errorSrc,
+    threshold,
+    lazyload,
+    imageRef,
+  });
 
   return (
     <>
-      <img ref={imgRef} {...props} src={img} alt={alt} />
+      <img ref={imageRef} {...props} src={imageSource} alt={alt} />
     </>
   );
 };

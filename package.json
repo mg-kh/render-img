@@ -1,11 +1,16 @@
 {
   "name": "render-img",
-  "version": "1.0.2",
-  "description": "Simple react image placeholder component.",
+  "version": "1.0.3",
+  "description": "Simple react image placeholder and lazyloading component.",
   "main": "dist/bundle.js",
   "files": [
     "dist"
   ],
+  "homepage": "https://render-img-reactlib.netlify.app/?path=/story/components-example-usage--image-loader-example",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mg-kh/render-img.git"
+  },
   "scripts": {
     "build": "rollup -c",
     "storybook": "start-storybook -p 6006",
@@ -16,7 +21,7 @@
     "lazyloading"
   ],
   "author": "Kaung Htet",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -45,5 +50,10 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
   }
 }

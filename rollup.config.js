@@ -1,4 +1,5 @@
 import babel from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import { terser } from "rollup-plugin-terser";
@@ -8,6 +9,7 @@ export default {
   output: {
     file: "dist/bundle.js",
     format: "cjs",
+    sourcemap: false,
   },
   plugins: [
     resolve(),
@@ -17,6 +19,11 @@ export default {
       presets: ["@babel/preset-react"],
     }),
     peerDepsExternal(),
+    commonjs({
+      namedExports: {
+        "node_modules/lodash/index.js": ["round", "debounce"],
+      },
+    }),
     terser(),
   ],
   external: ["react", "react-dom"],
