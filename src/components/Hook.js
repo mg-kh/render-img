@@ -1,5 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
 import { debounce, round } from "lodash";
+import { useCallback, useLayoutEffect, useState, useEffect } from "react";
+
+// utils
+import { isInViewPort } from "../utils/scroll";
 
 const Hook = ({
   src,
@@ -14,54 +17,54 @@ const Hook = ({
 
   // #region component states
   const [imageSource, setImageSource] = useState(placeHolderSrc);
+  const [isElementInViewPort, setIsElementInViewPort] = useState(false);
   //   #endregion
 
   // #region utils functions
   const checkImageSource = useCallback(() => {
     imgObj.src = src;
     imgObj.onload = () => setImageSource(() => src);
-    imgObj.onerror = () => setImageSource(() => errorSrc);
-  }, [src]);
+    imgObj.onerror = () => setImageSource(errorSrc);
+  }, [src, placeHolderSrc, errorSrc]);
 
   const initScrollDetector = (handler) => {
-    window.addEventListener("scroll", debounce(handler, 100));
+    window.addEventListener("scroll", handler);
   };
 
   const removeScrollDetector = (handler) => {
     window.removeEventListener("scroll", handler);
   };
 
-  const scrollEventHandler = () => {
-    const { top, bottom } = imageRef.current.getBoundingClientRect();
-    const scrollArea = document.body.scrollHeight;
-    const elementHeight = round(bottom - top);
-    const windowHeight = window.innerHeight;
-    const scrollY = window.scrollY;
-
-    if (centerScreenHeight > top + round(elementHeight / 2) - threshold) {
-      checkImageSource();
-      removeScrollDetector();
-    } else if (round(windowHeight + scrollY) > scrollArea - 50) {
-      checkImageSource();
-      removeScrollDetector();
-    }
-  };
+  function scrollEventHandler() {
+    return debounce(() => {
+      const { top, bottom } = imageRef.current.getBoundingClientRect();
+      const elementHeight = round(bottom - top);
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const scrollArea = document.body.scrollHeight;
+      if (isInViewPort({ centerScreenHeight, top, elementHeight, threshold })) {
+        checkImageSource();
+        setIsElementInViewPort(() => true);
+      } else if (round(windowHeight + scrollY) > scrollArea - 50) {
+        checkImageSource();
+        setIsElementInViewPort(() => true);
+      }
+    }, 50)();
+  }
   // #endregion
 
-  // #region component life cycle
-  useEffect(() => {
-    if (lazyload) {
-      initScrollDetector(scrollEventHandler);
-    } else {
-      checkImageSource();
+  useLayoutEffect(() => {
+    scrollEventHandler(); // show in view port image instantly
+    initScrollDetector(scrollEventHandler); // start detecting the viewport
+    if (isElementInViewPort === true) {
+      removeScrollDetector(scrollEventHandler); // remove scroll detector event when img reveal
     }
-  }, [src, lazyload]);
-  // #endregion
+    return () => removeScrollDetector(scrollEventHandler);
+  }, [src, lazyload, placeHolderSrc, errorSrc, isElementInViewPort]);
 
   return {
     imageSource,
-    // actions
-    setImageSource,
+    isElementInViewPort,
   };
 };
 

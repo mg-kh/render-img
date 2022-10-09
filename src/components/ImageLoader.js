@@ -1,4 +1,6 @@
-import React, { useRef } from "react";
+// import { round, debounce } from "lodash";
+import React, { useEffect, useState, useRef } from "react";
+import { useMemo } from "react";
 
 import Hook from "./Hook";
 
@@ -7,13 +9,16 @@ const ImageLoader = ({
   placeHolderSrc,
   errorSrc,
   alt,
-  threshold = 100,
+  threshold = 0,
   lazyload = false,
+  height = 0,
+  width = 0,
+  backgroundColor = "#d5d5d5",
   ...props
 }) => {
   const imageRef = useRef();
 
-  const { imageSource } = Hook({
+  const { imageSource, isElementInViewPort } = Hook({
     src,
     placeHolderSrc,
     errorSrc,
@@ -24,7 +29,24 @@ const ImageLoader = ({
 
   return (
     <>
-      <img ref={imageRef} {...props} src={imageSource} alt={alt} />
+      <div
+        ref={imageRef}
+        style={{
+          paddingBottom: `${(height / width) * 100}%`,
+          width: "100%",
+          backgroundColor,
+          position: "relative",
+        }}
+      >
+        {isElementInViewPort && (
+          <img
+            style={{ position: "absolute", inset: "0" }}
+            {...props}
+            src={imageSource}
+            alt={alt}
+          />
+        )}
+      </div>
     </>
   );
 };
