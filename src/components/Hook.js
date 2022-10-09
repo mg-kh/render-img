@@ -4,14 +4,7 @@ import { useCallback, useLayoutEffect, useState, useEffect } from "react";
 // utils
 import { isInViewPort } from "../utils/scroll";
 
-const Hook = ({
-  src,
-  placeHolderSrc,
-  errorSrc,
-  threshold,
-  lazyload,
-  imageRef,
-}) => {
+const Hook = ({ src, placeHolderSrc, errorSrc, threshold, imageRef }) => {
   const imgObj = new Image();
   const centerScreenHeight = round(window.innerHeight / 2);
 
@@ -60,7 +53,7 @@ const Hook = ({
       removeScrollDetector(scrollEventHandler); // remove scroll detector event when img reveal
     }
     return () => removeScrollDetector(scrollEventHandler);
-  }, [src, lazyload, placeHolderSrc, errorSrc, isElementInViewPort]);
+  }, [src, placeHolderSrc, errorSrc, isElementInViewPort]);
 
   return {
     imageSource,

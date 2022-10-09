@@ -10,7 +10,6 @@ const ImageLoader = ({
   errorSrc,
   alt,
   threshold = 0,
-  lazyload = false,
   height = 0,
   width = 0,
   backgroundColor = "#d5d5d5",
@@ -23,7 +22,6 @@ const ImageLoader = ({
     placeHolderSrc,
     errorSrc,
     threshold,
-    lazyload,
     imageRef,
   });
 
