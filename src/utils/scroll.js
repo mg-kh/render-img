@@ -1,11 +1,9 @@
-import { round } from "lodash";
-
 export const isInViewPort = ({
   centerScreenHeight,
   top,
   elementHeight,
   threshold,
 }) => {
-  const startVisiblePoint = top - threshold;
-  return centerScreenHeight > startVisiblePoint + round(elementHeight / 2);
+  const startVisiblePoint = centerScreenHeight + threshold;
+  return startVisiblePoint > top + Math.round(elementHeight / 2);
 };

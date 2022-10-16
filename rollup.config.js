@@ -20,5 +20,5 @@ export default {
     peerDepsExternal(),
     terser(),
   ],
-  external: ["react", "react-dom", "lodash"],
+  external: ["react", "react-dom"],
 };
