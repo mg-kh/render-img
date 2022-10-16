@@ -12,8 +12,25 @@ Simple React Component for image placeholder and lazy loading.
 
 - Image lazyloading
 
+- optional blur effect
+
+- optional background placeholder color
+
 ---
 
-## [Documation and Demo](https://render-img-reactlib.netlify.app/?path=/story/components-example-usage--image-loader-example)
+## Usage
+
+```javascript
+<ImageLoader
+  placeHolderSrc={smImg}
+  src={lgImg}
+  errorSrc={smImg}
+  alt="..."
+  width={4189} // add Intrinsic width
+  height={3361} // Intrinsic height
+  threshold={threshold} // default => 100
+  isUseblur={isUseblur} // default => false
+/>
+```
 
 Made with ❤️ by - _kaung htet_

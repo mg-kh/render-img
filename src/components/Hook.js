@@ -1,15 +1,15 @@
-import { debounce, round } from "lodash";
-import { useCallback, useLayoutEffect, useState, useEffect } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
+import { debounce } from "../utils/debounce";
 
 // utils
 import { isInViewPort } from "../utils/scroll";
 
-const Hook = ({ src, placeHolderSrc, errorSrc, threshold, imageRef }) => {
+const Hook = ({ src, errorSrc, threshold, imageRef }) => {
   const imgObj = new Image();
-  const centerScreenHeight = round(window.innerHeight / 2);
+  const centerScreenHeight = Math.round(window.innerHeight / 2);
 
   // #region component states
-  const [imageSource, setImageSource] = useState(placeHolderSrc);
+  const [imageSource, setImageSource] = useState("");
   const [isElementInViewPort, setIsElementInViewPort] = useState(false);
   //   #endregion
 
@@ -18,7 +18,7 @@ const Hook = ({ src, placeHolderSrc, errorSrc, threshold, imageRef }) => {
     imgObj.src = src;
     imgObj.onload = () => setImageSource(() => src);
     imgObj.onerror = () => setImageSource(errorSrc);
-  }, [src, placeHolderSrc, errorSrc]);
+  }, [src, errorSrc]);
 
   const initScrollDetector = (handler) => {
     window.addEventListener("scroll", handler);
@@ -31,18 +31,18 @@ const Hook = ({ src, placeHolderSrc, errorSrc, threshold, imageRef }) => {
   function scrollEventHandler() {
     return debounce(() => {
       const { top, bottom } = imageRef.current.getBoundingClientRect();
-      const elementHeight = round(bottom - top);
-      const windowHeight = window.innerHeight;
-      const scrollY = window.scrollY;
+      const elementHeight = Math.round(bottom - top);
+      const windowHeight = Math.round(window.innerHeight);
+      const scrollY = Math.round(window.scrollY);
       const scrollArea = document.body.scrollHeight;
       if (isInViewPort({ centerScreenHeight, top, elementHeight, threshold })) {
         checkImageSource();
         setIsElementInViewPort(() => true);
-      } else if (round(windowHeight + scrollY) > scrollArea - 50) {
+      } else if (windowHeight + scrollY > scrollArea - 50) {
         checkImageSource();
         setIsElementInViewPort(() => true);
       }
-    }, 50)();
+    }, 50);
   }
   // #endregion
 
@@ -53,7 +53,7 @@ const Hook = ({ src, placeHolderSrc, errorSrc, threshold, imageRef }) => {
       removeScrollDetector(scrollEventHandler); // remove scroll detector event when img reveal
     }
     return () => removeScrollDetector(scrollEventHandler);
-  }, [src, placeHolderSrc, errorSrc, isElementInViewPort]);
+  }, [src, errorSrc, isElementInViewPort]);
 
   return {
     imageSource,
