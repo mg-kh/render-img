@@ -30,6 +30,7 @@ Simple React Component for image placeholder and lazy loading.
   height={3361} // Intrinsic height
   threshold={threshold} // default => 100
   isUseblur={isUseblur} // default => false
+  backgroundColor="#b4b4b4" // background for overlay
 />
 ```
 
