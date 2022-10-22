@@ -1,6 +1,6 @@
 ## Image Loader Component For React&#x20;
 
-Simple React Component for image placeholder and lazy loading.
+React Component for image placeholder and lazy loading.
 
 ---
 
@@ -16,21 +16,24 @@ Simple React Component for image placeholder and lazy loading.
 
 - optional background placeholder color
 
+- custom **loader component**
+
 ---
 
 ## Usage
 
 ```javascript
 <ImageLoader
-  placeHolderSrc={smImg}
+  placeHolderSrc={smImg} // low quality image to show before actual image load
   src={lgImg}
-  errorSrc={smImg}
+  errorSrc={smImg} // low quality image to show when actual image src get error
   alt="..."
-  width={4189} // add Intrinsic width
-  height={3361} // Intrinsic height
+  width={...} // add Intrinsic width
+  height={...} // Intrinsic height
   threshold={threshold} // default => 100
   isUseblur={isUseblur} // default => false
-  backgroundColor="#b4b4b4" // background for overlay
+  blurOverLay='#b4b4b4'
+  loader = null, // custom loader component
 />
 ```
 
