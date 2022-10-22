@@ -10,8 +10,9 @@ const ImageLoader = ({
   threshold = 100,
   height = 0,
   width = 0,
-  backgroundColor = "#b4b4b4",
+  blurOverLay = "#b4b4b4",
   isUseblur = false,
+  loader = null,
 }) => {
   const imageRef = useRef();
 
@@ -31,7 +32,9 @@ const ImageLoader = ({
           paddingBottom: `${(height / width) * 100}%`,
           width: "100%",
           position: "relative",
-          backgroundImage: `url(${placeHolderSrc})`,
+          backgroundImage: `${
+            imageSource === "" ? `url(${placeHolderSrc})` : "none"
+          }`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
@@ -49,17 +52,32 @@ const ImageLoader = ({
           />
         ) : (
           <>
-            {isUseblur && (
+            {!placeHolderSrc && loader ? (
               <div
                 style={{
-                  backgroundColor: `${backgroundColor}17`,
                   position: "absolute",
                   inset: 0,
-                  backdropFilter: "blur(5px)",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
+                  width: "100%",
+                  height: "100%",
                 }}
-              ></div>
+              >
+                {loader}
+              </div>
+            ) : (
+              isUseblur && (
+                <div
+                  style={{
+                    backgroundColor: `${blurOverLay}17`,
+                    position: "absolute",
+                    inset: 0,
+                    backdropFilter: "blur(5px)",
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                ></div>
+              )
             )}
           </>
         )}
