@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 
 import Hook from "./Hook";
+import ImageComponent from "./ImageComponent";
+import LoaderWrapper from "./LoaderWrapper";
+import BlurComponent from "./BlurComponent";
 
 const ImageLoader = ({
   src,
@@ -10,12 +13,16 @@ const ImageLoader = ({
   threshold = 100,
   height = 0,
   width = 0,
-  blurOverLay = "#b4b4b4",
+  blurOverLayColor = "#b4b4b4",
+  blurStrength = "sm",
   isUseblur = false,
   loader = null,
+  containerClass = "",
+  containerStyle = {},
+  imageClass = "",
+  imageStyle = {},
 }) => {
   const imageRef = useRef();
-
   const { imageSource, isElementInViewPort } = Hook({
     src,
     placeHolderSrc,
@@ -31,53 +38,35 @@ const ImageLoader = ({
         style={{
           paddingBottom: `${(height / width) * 100}%`,
           width: "100%",
+          height: "auto",
           position: "relative",
-          backgroundImage: `${
-            imageSource === "" ? `url(${placeHolderSrc})` : "none"
-          }`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
+          ...containerStyle,
         }}
+        className={containerClass}
       >
         {isElementInViewPort && imageSource !== "" ? (
-          <img
-            style={{
-              position: "absolute",
-              inset: "0",
-              width: "100%",
-              height: "100%",
-            }}
-            src={imageSource}
+          <ImageComponent
+            imageSource={imageSource}
             alt={alt}
+            imageClass={imageClass}
+            imageStyle={imageStyle}
           />
         ) : (
           <>
-            {!placeHolderSrc && loader ? (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                {loader}
-              </div>
-            ) : (
-              isUseblur && (
-                <div
-                  style={{
-                    backgroundColor: `${blurOverLay}17`,
-                    position: "absolute",
-                    inset: 0,
-                    backdropFilter: "blur(5px)",
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                ></div>
-              )
+            {placeHolderSrc && (
+              <ImageComponent
+                imageSource={placeHolderSrc}
+                alt={alt}
+                imageClass={imageClass}
+                imageStyle={imageStyle}
+              />
+            )}
+            {loader && <LoaderWrapper>{loader}</LoaderWrapper>}
+            {isUseblur && (
+              <BlurComponent
+                blurStrength={blurStrength}
+                blurOverLayColor={blurOverLayColor}
+              />
             )}
           </>
         )}
