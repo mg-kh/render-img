@@ -1,6 +1,6 @@
 {
   "name": "render-img",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Simple react image lazyloading component",
   "main": "dist/bundle.js",
   "files": [
@@ -12,9 +12,7 @@
     "url": "https://github.com/mg-kh/render-img.git"
   },
   "scripts": {
-    "build": "rollup -c",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build": "rollup -c"
   },
   "keywords": [
     "image",
@@ -33,14 +31,6 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
-    "@storybook/addon-actions": "^6.5.12",
-    "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-links": "^6.5.12",
-    "@storybook/builder-webpack4": "^6.5.12",
-    "@storybook/manager-webpack4": "^6.5.12",
-    "@storybook/react": "^6.5.12",
-    "@storybook/testing-library": "^0.0.13",
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
     "rollup": "^2.79.0",

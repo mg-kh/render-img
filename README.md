@@ -23,17 +23,24 @@ React Component for image placeholder and lazy loading.
 ## Usage
 
 ```javascript
+import {ImageLoader} from 'render-img'
+
 <ImageLoader
-  placeHolderSrc={smImg} // low quality image to show before actual image load
-  src={lgImg}
-  errorSrc={smImg} // low quality image to show when actual image src get error
-  alt="..."
-  width={...} // add Intrinsic width
-  height={...} // Intrinsic height
-  threshold={threshold} // default => 100
-  isUseblur={isUseblur} // default => false
-  blurOverLay='#b4b4b4'
-  loader = null, // custom loader component
+  src,                                  // * required
+  placeHolderSrc,
+  errorSrc,
+  alt,
+  threshold = 100,
+  width = 0,                            // Intrinsic width of image
+  height = 0,                           // Intrinsic height of image
+  blurOverLayColor = "#b4b4b4",
+  blurStrength = "sm",                  // options : sm/md/lg
+  isUseblur = false,                    // to use blur effect or not
+  loader = null,                        // custom loader component
+  containerClass = "",                  // custom class for container div
+  containerStyle = {},                  // custom css for container div
+  imageClass = "",                      // custom class for image component
+  imageStyle = {},                      // custom css for image component
 />
 ```
 
